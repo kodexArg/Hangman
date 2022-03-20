@@ -45,7 +45,6 @@ def run():
         os.system("clear")
         if message != "": #messages fixed at top
             print(f"{message}\n")
-            message = ""
         else:
             print("\n")
         hanguin_man_ascii(attempt)
@@ -54,12 +53,16 @@ def run():
 
     while attempt < 6 and not success:
         ascii_drawing(attempt, message, hidden_word, history) #because DRY!
+        message = ""
         customer_choice = input("\nAdivina una letra:").upper()      
         if customer_choice not in ALPHABET:
             message = "Sólo puedes intentar con letras"
             continue
         if customer_choice in history:
             message = "Ya has intentado esa letra, no la endré en cuenta..."
+            continue
+        if len(customer_choice) != 1:
+            message = "Sólo una letra a la vez, y sin espacios!"
             continue
 
         history.append(customer_choice)
